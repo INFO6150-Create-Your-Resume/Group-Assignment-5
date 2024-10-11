@@ -19,6 +19,17 @@
             font-size: 3rem;
             color: #0d6efd;
         }
+        .testimonial {
+        background-color: #f8f9fa;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .testimonial .avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        }
     </style>
 </head>
 <body>
@@ -101,6 +112,59 @@
         </div>
     </div>
 </div>
+
+<!-- **Testimonials Carousel** -->
+<div id="testimonialsCarousel" class="carousel slide bg-light py-5" data-bs-ride="carousel" data-bs-interval="2000">
+    <div class="container">
+      <div class="carousel-inner">
+        <!-- **Testimonial 1** -->
+        <div class="carousel-item active">
+          <div class="row justify-content-center">
+            <div class="col-md-8 testimonial text-center">
+              <img src="https://i.pravatar.cc/80?img=1" alt="John Doe" class="avatar mb-3">
+              <blockquote class="blockquote">
+                <p class="mb-4">"This tool made creating my resume a breeze!"</p>
+                <footer class="blockquote-footer">John Doe</footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+        <!-- **Testimonial 2** -->
+        <div class="carousel-item">
+          <div class="row justify-content-center">
+            <div class="col-md-8 testimonial text-center">
+              <img src="https://i.pravatar.cc/80?img=2" alt="Jane Smith" class="avatar mb-3">
+              <blockquote class="blockquote">
+                <p class="mb-4">"I landed my dream job thanks to my new resume."</p>
+                <footer class="blockquote-footer">Jane Smith</footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+        <!-- **Testimonial 3** -->
+        <div class="carousel-item">
+          <div class="row justify-content-center">
+            <div class="col-md-8 testimonial text-center">
+              <img src="https://i.pravatar.cc/80?img=3" alt="Alex Johnson" class="avatar mb-3">
+              <blockquote class="blockquote">
+                <p class="mb-4">"Highly recommend this service to anyone needing a professional resume."</p>
+                <footer class="blockquote-footer">Alex Johnson</footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- **Carousel Controls** -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
 
 <!-- **Footer with Social Icons** -->
 <footer class="bg-dark text-light py-4">
