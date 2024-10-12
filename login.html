@@ -366,6 +366,62 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
     <!-- **Custom JS for Form Validation** -->
-    <script></script>
+    <script>
+      // Initialize tooltips
+      const tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      );
+      const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+
+      // Form validation
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const email = document.getElementById("email");
+          const password = document.getElementById("password");
+          let valid = true;
+
+          // Email validation
+          if (email.value === "" || !validateEmail(email.value)) {
+            valid = false;
+            email.classList.add("is-invalid");
+          } else {
+            email.classList.remove("is-invalid");
+          }
+
+          // Password validation
+          if (password.value === "" || password.value.length < 6) {
+            valid = false;
+            password.classList.add("is-invalid");
+          } else {
+            password.classList.remove("is-invalid");
+          }
+
+          // Display success or error messages
+          if (valid) {
+            document.getElementById("errorAlert").classList.add("d-none");
+            const toast = new bootstrap.Toast(
+              document.getElementById("successToast")
+            );
+            toast.show();
+            // Redirect to index page after delay
+            setTimeout(() => {
+              window.location.href = "index.html";
+            }, 2000);
+          } else {
+            document.getElementById("errorAlert").classList.remove("d-none");
+          }
+        });
+
+      // Email format validation function
+      // Save this area for future database checking, if data matched redirect to the landing page
+      function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      }
+    </script>
   </body>
 </html>
