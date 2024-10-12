@@ -252,11 +252,19 @@
                     aria-describedby="passwordIcon"
                     required
                   />
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    id="togglePassword"
+                  >
+                    Show
+                  </button>
                   <div class="invalid-feedback">
                     Password must be at least 6 characters.
                   </div>
                 </div>
               </div>
+
               <!-- **Remember Me Checkbox** -->
               <div class="mb-3 form-check">
                 <input
@@ -272,7 +280,12 @@
               <button
                 type="submit"
                 class="btn btn-primary btn-block btn-custom w-100"
+                id="loginButton"
               >
+                <span
+                  class="spinner-border spinner-border-sm d-none"
+                  id="loadingSpinner"
+                ></span>
                 Login
               </button>
             </form>
@@ -287,7 +300,7 @@
             </p>
             <!-- **Sign up Link** -->
             <p class="text-center">
-              <a href="#">
+              <a href="signup.html">
                 <i class="fas fa-user-plus"></i> New here? Sign up
               </a>
             </p>
@@ -375,11 +388,48 @@
         return new bootstrap.Tooltip(tooltipTriggerEl);
       });
 
+      const passwordField = document.getElementById("password");
+      const togglePasswordButton = document.getElementById("togglePassword");
+
+      togglePasswordButton.addEventListener("click", () => {
+        const currentType = passwordField.getAttribute("type");
+
+        // Toggle between 'text' and 'password'
+        if (currentType === "password") {
+          passwordField.setAttribute("type", "text");
+          togglePasswordButton.textContent = "Hide";
+
+          // Change back to password after 3 seconds
+          setTimeout(() => {
+            passwordField.setAttribute("type", "password");
+            togglePasswordButton.textContent = "Show";
+          }, 3000); // 3 seconds
+        } else {
+          passwordField.setAttribute("type", "password");
+          togglePasswordButton.textContent = "Show";
+        }
+      });
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault(); // Prevent form submission on invalid input
+            document.getElementById("loginButton").click(); // Trigger login
+          }
+        });
+
       // Form validation
       document
         .getElementById("loginForm")
         .addEventListener("submit", function (e) {
           e.preventDefault();
+          const loginButton = document.getElementById("loginButton");
+          loginButton.disable = true;
+
+          const spinner = document.getElementById("loadingSpinner");
+          spinner.classList.remove("d-none"); // Show the spinner
+
           const email = document.getElementById("email");
           const password = document.getElementById("password");
           let valid = true;
@@ -408,8 +458,10 @@
             );
             toast.show();
             // Redirect to index page after delay
+            // Handle both spinner and redirection after 2s
             setTimeout(() => {
-              window.location.href = "index.html";
+              spinner.classList.add("d-none"); // Hide spinner
+              window.location.href = "index.html"; // Redirect to index
             }, 2000);
           } else {
             document.getElementById("errorAlert").classList.remove("d-none");
@@ -422,6 +474,26 @@
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
       }
+
+      // Set session time out
+      let idleTime = 0;
+      window.onload = resetTimer;
+
+      document.onmousemove = resetTimer;
+      document.onkeypress = resetTimer;
+
+      function resetTimer() {
+        idleTime = 0;
+      }
+
+      setInterval(() => {
+        idleTime++;
+        if (idleTime > 5) {
+          // 5 minutes idle time
+          alert("Session expired! Please login again.");
+          window.location.href = "login.html";
+        }
+      }, 60000); // Check every minute
     </script>
   </body>
 </html>
