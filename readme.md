@@ -21,7 +21,15 @@ The **Resume Builder** website provides users with a simple and intuitive platfo
 8. **Toast**: A success notification that appears after successful login.
     - Classes: `toast`, `toast-container`, `toast-body`, `toast-success`
 
+## Future Enhancements
+- **User Registration**: Create accounts to save resumes for future edits.
+- **MongoDB Integration**: Manage user accounts and login securely.
+- **Template Gallery**: Add more templates with filters.
+- **Profile Management**: Users can update personal information and preferences.
 
 ## Contributions
 - **Jianan Ni** and **Yao Zhang** worked on `index.html`, with **Yao Zhang** primarily focusing on the *Testimonials Carousel*.
-- **Nana Abena Bempong** focused on the layout of `login.html`, while **Yuxuan Chen** primarily worked on the script of `login.html`.
+- **Nana Abena Bempong** focused on the layout of `login.html`, while **Yuxuan Chen** primarily worked on the JavaScript function of `login.html`.
+
+## License
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
