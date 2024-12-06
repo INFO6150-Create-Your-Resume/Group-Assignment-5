@@ -14,7 +14,7 @@
         background: #f8f9fa;
       }
       .jumbotron {
-        color: #ffffff;
+        color: #217afd;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
         padding: 100px 0;
       }
@@ -34,6 +34,35 @@
         height: 80px;
         border-radius: 50%;
       }
+      /* 设置主容器的样式 */
+      .templates-grid {
+        display: flex; /* 使用 Flexbox 实现横向排列 */
+        justify-content: space-between; /* 保持间隔均匀 */
+        align-items: center; /* 垂直方向居中 */
+        gap: 10px; /* 子元素之间的间距（可调整） */
+        padding: 200px; /* 容器内边距（可选） */
+      }
+
+      /* 设置子容器 thumbnail 的样式 */
+      .thumbnail {
+        display: flex; /* 方便控制内容对齐 */
+        justify-content: center;
+        align-items: center;
+        width: 300px; /* 子容器的宽度 */
+        height: 400px; /* 子容器的高度 */
+        overflow: hidden; /* 如果图片超出容器，隐藏多余部分 */
+        border: 1px solid #ccc; /* 可选：为子容器加边框 */
+        border-radius: 8px; /* 可选：为容器设置圆角 */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 可选：添加阴影 */
+      }
+
+      /* 设置图片的样式 */
+      .thumbnail img {
+        max-width: 100%; /* 图片宽度自适应 */
+        max-height: 100%; /* 图片高度自适应 */
+        object-fit: cover; /* 确保图片裁剪不变形 */
+      }
+
     </style>
   </head>
   <body>
@@ -130,6 +159,18 @@
         </div>
       </div>
     </div>
+
+    <main class="templates-grid">
+      <div class="thumbnail" data-template="1">
+        <img src="/client/entity/template1-thumbnail.png" alt="Template 1">
+      </div>
+      <div class="thumbnail" data-template="2">
+        <img src="/client/entity/template2-thumbnail.png" alt="Template 2">
+      </div>
+      <div class="thumbnail" data-template="3">
+        <img src="/client/entity/template3-thumbnail.png" alt="Template 3">
+      </div>
+    </main>
 
     <!-- **Testimonials Carousel** -->
     <div
