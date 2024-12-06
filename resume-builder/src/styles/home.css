@@ -1,0 +1,29 @@
+body {
+    background: #f8f9fa;
+  }
+  
+  .jumbotron {
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    padding: 100px 0;
+  }
+  
+  .feature-icon {
+    font-size: 3rem;
+    color: #217afd;
+  }
+  
+  .testimonial {
+    background-color: #c3c3c3;
+    margin: 20px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 10px -10px 8px 2px #ececec;
+  }
+  
+  .testimonial .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
+  
