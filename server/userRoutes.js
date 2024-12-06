@@ -29,7 +29,7 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ "personalInfo.email": email });
     if (!user) {
       return res.status(404).json({ message: "Email not found" }); // Specific error for email
     }
