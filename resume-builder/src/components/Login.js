@@ -51,7 +51,14 @@ const Login = () => {
               Email Address
             </label>
             <div className="input-group">
-              <span className="input-group-text bg-white">
+              <span
+                className="input-group-text bg-white"
+                style={{
+                  height: "calc(1.5em + 0.75rem + 2px)",
+                  border: "1px solid #ced4da",
+                  borderRadius: "0.375rem",
+                }}
+              >
                 <i className="fas fa-envelope"></i>
               </span>
               <input
@@ -73,7 +80,14 @@ const Login = () => {
               Password
             </label>
             <div className="input-group">
-              <span className="input-group-text bg-white">
+              <span
+                className="input-group-text bg-white"
+                style={{
+                  height: "calc(1.5em + 0.75rem + 2px)",
+                  border: "1px solid #ced4da",
+                  borderRadius: "0.375rem",
+                }}
+              >
                 <i className="fas fa-lock"></i>
               </span>
               <input
