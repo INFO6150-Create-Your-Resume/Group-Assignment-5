@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-const Login = () => {
+const Login = ({ setUser, setIsLoggedIn }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
@@ -23,8 +24,12 @@ const Login = () => {
 
       const data = await response.json();
       if (response.ok) {
+        // Save user data and token to localStorage
+        localStorage.setItem("user", JSON.stringify(data.user)); // Store full user object
         localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify({ name: data.name }));
+
+        setUser(data.user); // Pass all user data to state
+        setIsLoggedIn(true);
         navigate("/home");
       } else {
         alert(data.message);
@@ -36,69 +41,44 @@ const Login = () => {
   };
 
   return (
-    <div
-      className="container d-flex justify-content-center align-items-center vh-100"
-      style={{ backgroundColor: "#F5F5F5" }}
-    >
+    <div className="container d-flex justify-content-center align-items-center vh-100">
       <div
         className="card shadow-lg p-4"
-        style={{
-          maxWidth: "400px",
-          width: "100%",
-          backgroundColor: "#E8D3C8",
-          color: "#664C33",
-        }}
+        style={{ maxWidth: "400px", width: "100%" }}
       >
-        <h3
-          className="card-title text-center mb-4"
-          style={{ color: "#B8860B" }}
-        >
-          Login
-        </h3>
+        <h3 className="card-title text-center mb-4">Login</h3>
         <form onSubmit={handleLogin}>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
               Email Address
             </label>
-            <div className="input-group">
-              <input
-                type="email"
-                name="email"
-                id="email"
-                className="form-control"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                style={{ borderColor: "#D2B48C" }}
-              />
-            </div>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              className="form-control"
+              placeholder="Enter your email"
+              required
+              value={formData.email}
+              onChange={handleInputChange}
+            />
           </div>
-
           <div className="mb-3">
             <label htmlFor="password" className="form-label">
               Password
             </label>
-            <div className="input-group">
-              <input
-                type="password"
-                name="password"
-                id="password"
-                className="form-control"
-                placeholder="Enter your password"
-                value={formData.password}
-                onChange={handleInputChange}
-                required
-                style={{ borderColor: "#D2B48C" }}
-              />
-            </div>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              className="form-control"
+              placeholder="Enter your password"
+              required
+              value={formData.password}
+              onChange={handleInputChange}
+            />
           </div>
-
-          <button
-            type="submit"
-            className="btn w-100"
-            style={{ backgroundColor: "#B8860B", color: "#F5F5F5" }}
-          >
+          <button type="submit" className="btn btn-primary w-100">
             Login
           </button>
         </form>

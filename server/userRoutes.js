@@ -46,7 +46,21 @@ router.post("/login", async (req, res) => {
     res.status(200).json({
       message: "Login successful",
       token,
-      name: user.personalInfo.fullName, // Include full name in the response
+      user: {
+        fullName: user.personalInfo.fullName,
+        email: user.personalInfo.email,
+        contact: user.personalInfo.contact,
+        address: user.personalInfo.address,
+        linkedin: user.personalInfo.linkedin,
+        portfolio: user.personalInfo.portfolio,
+        education: user.education,
+        workExperience: user.workExperience,
+        skills: user.skills,
+        projects: user.projects,
+        certifications: user.certifications,
+        achievements: user.achievements,
+        languages: user.languages,
+      },
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

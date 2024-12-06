@@ -1,130 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import React from "react";
+import Footer from "./Footer";
 
-const HomePage = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const userData = localStorage.getItem("user");
-
-    if (token && userData) {
-      try {
-        const parsedUser = JSON.parse(userData);
-        setUser(parsedUser);
-        setIsLoggedIn(true);
-      } catch (error) {
-        console.error("Error parsing user data:", error);
-        localStorage.clear();
-        setUser(null);
-        setIsLoggedIn(false);
-      }
-    } else {
-      setUser(null);
-      setIsLoggedIn(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    const handleUnload = () => {
-      localStorage.clear();
-    };
-
-    window.addEventListener("beforeunload", handleUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleUnload);
-    };
-  }, []);
-
-  const handleSignOut = () => {
-    localStorage.clear();
-    setIsLoggedIn(false);
-    setUser(null);
-  };
-
+const HomePage = ({ isLoggedIn, user }) => {
   return (
     <>
-      {/* Navbar */}
-      <nav
-        className="navbar navbar-expand-lg"
-        style={{ backgroundColor: "#B8860B" }}
-      >
-        <div className="container">
-          <Link
-            className="navbar-brand"
-            to="/"
-            style={{ color: "#F5F5F5", fontWeight: "bold" }}
-          >
-            Resume Builder
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
-              {isLoggedIn ? (
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/templates">
-                      Library
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/my-templates">
-                      My Templates
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <button
-                      className="btn btn-light"
-                      onClick={handleSignOut}
-                      style={{
-                        backgroundColor: "#E8D3C8",
-                        color: "#664C33",
-                        border: "none",
-                      }}
-                    >
-                      Sign Out
-                    </button>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/templates">
-                      Templates
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/login">
-                      Sign In
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/register">
-                      Sign Up
-                    </Link>
-                  </li>
-                </>
-              )}
-            </ul>
-          </div>
-        </div>
-      </nav>
-
-      {/* Jumbotron */}
       <div
         className="jumbotron text-center py-5"
         style={{ backgroundColor: "#E8D3C8", color: "#664C33" }}
@@ -135,11 +14,10 @@ const HomePage = () => {
             Stand out with a resume that truly represents you.
           </p>
           {isLoggedIn ? (
-            <h2 style={{ color: "#B8860B" }}>Hello, {user?.name}</h2>
+            <h2 style={{ color: "#B8860B" }}>Hello, {user?.fullName}</h2>
           ) : (
-            <Link
+            <button
               className="btn btn-lg"
-              to="/login"
               style={{
                 backgroundColor: "#B8860B",
                 color: "#F5F5F5",
@@ -147,7 +25,7 @@ const HomePage = () => {
               }}
             >
               Get Started
-            </Link>
+            </button>
           )}
         </div>
       </div>
@@ -182,7 +60,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Testimonials Carousel */}
+      {/* Testimonials Section */}
       <div
         id="testimonialsCarousel"
         className="carousel slide bg-light py-5"
@@ -254,22 +132,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer
-        className="text-center py-4"
-        style={{ backgroundColor: "#664C33", color: "#F5F5F5" }}
-      >
-        <p>&copy; 2024 Resume Builder. All Rights Reserved.</p>
-        <a href="https://www.facebook.com" className="mx-2">
-          <i className="fab fa-facebook-f" style={{ color: "#E8D3C8" }}></i>
-        </a>
-        <a href="https://www.twitter.com" className="mx-2">
-          <i className="fab fa-twitter" style={{ color: "#E8D3C8" }}></i>
-        </a>
-        <a href="https://www.linkedin.com" className="mx-2">
-          <i className="fab fa-linkedin-in" style={{ color: "#E8D3C8" }}></i>
-        </a>
-      </footer>
+      <Footer />
     </>
   );
 };
