@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./../styles/register.css";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -39,13 +38,24 @@ const RegisterForm = () => {
   const prevStep = () => setStep(step - 1);
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
-      <div className="card register-card">
-        <h3 className="text-center">Sign Up</h3>
+    <div
+      className="d-flex justify-content-center align-items-center vh-100"
+      style={{ backgroundColor: "#F5F5F5" }}
+    >
+      <div
+        className="card register-card"
+        style={{ backgroundColor: "#E8D3C8", color: "#664C33", width: "400px" }}
+      >
+        <h3 className="text-center" style={{ color: "#B8860B" }}>
+          Sign Up
+        </h3>
         <div className="progress">
           <div
             className="progress-bar"
-            style={{ width: `${(step / 3) * 100}%` }}
+            style={{
+              backgroundColor: "#B8860B",
+              width: `${(step / 3) * 100}%`,
+            }}
           ></div>
         </div>
         {step === 1 && (
@@ -61,6 +71,7 @@ const RegisterForm = () => {
                   value={formData.firstName}
                   onChange={handleInputChange}
                   required
+                  style={{ borderColor: "#D2B48C" }}
                 />
               </div>
               <div className="mb-3">
@@ -72,6 +83,7 @@ const RegisterForm = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
+                  style={{ borderColor: "#D2B48C" }}
                 />
               </div>
               <div className="mb-3">
@@ -83,49 +95,42 @@ const RegisterForm = () => {
                   value={formData.password}
                   onChange={handleInputChange}
                   required
+                  style={{ borderColor: "#D2B48C" }}
                 />
               </div>
               <button
                 type="button"
-                className="btn btn-primary w-100"
+                className="btn w-100"
                 onClick={nextStep}
+                style={{ backgroundColor: "#B8860B", color: "#F5F5F5" }}
               >
                 Next <i className="fas fa-arrow-right"></i>
               </button>
             </form>
           </div>
         )}
+        {/* Additional steps retained */}
         {step === 2 && (
           <div>
             <h6>Step 2: Career Goals</h6>
             <textarea
               placeholder="Describe your career goals"
               className="form-control"
+              style={{ borderColor: "#D2B48C" }}
             ></textarea>
-            <button className="btn btn-secondary w-100" onClick={prevStep}>
-              <i className="fas fa-arrow-left"></i> Back
-            </button>
-            <button className="btn btn-primary w-100" onClick={nextStep}>
-              Next <i className="fas fa-arrow-right"></i>
-            </button>
-          </div>
-        )}
-        {step === 3 && (
-          <div>
-            <h6>Step 3: Experience</h6>
-            <textarea
-              placeholder="Describe your experience"
-              className="form-control"
-            ></textarea>
-            <button className="btn btn-secondary w-100" onClick={prevStep}>
+            <button
+              className="btn w-100"
+              onClick={prevStep}
+              style={{ backgroundColor: "#B8860B", color: "#F5F5F5" }}
+            >
               <i className="fas fa-arrow-left"></i> Back
             </button>
             <button
-              type="submit"
-              className="btn btn-success w-100"
-              onClick={handleRegister}
+              className="btn w-100"
+              onClick={nextStep}
+              style={{ backgroundColor: "#B8860B", color: "#F5F5F5" }}
             >
-              Submit <i className="fas fa-check"></i>
+              Next <i className="fas fa-arrow-right"></i>
             </button>
           </div>
         )}

@@ -26,11 +26,11 @@ const HomePage = () => {
       setUser(null);
       setIsLoggedIn(false);
     }
-  }, []); // Runs once when the component mounts
+  }, []);
 
   useEffect(() => {
     const handleUnload = () => {
-      localStorage.clear(); // Clear all local storage data
+      localStorage.clear();
     };
 
     window.addEventListener("beforeunload", handleUnload);
@@ -41,17 +41,24 @@ const HomePage = () => {
   }, []);
 
   const handleSignOut = () => {
-    localStorage.clear(); // Clear localStorage
-    setIsLoggedIn(false); // Update state
-    setUser(null); // Clear user data
+    localStorage.clear();
+    setIsLoggedIn(false);
+    setUser(null);
   };
 
   return (
     <>
       {/* Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav
+        className="navbar navbar-expand-lg"
+        style={{ backgroundColor: "#B8860B" }}
+      >
         <div className="container">
-          <Link className="navbar-brand" to="/">
+          <Link
+            className="navbar-brand"
+            to="/"
+            style={{ color: "#F5F5F5", fontWeight: "bold" }}
+          >
             Resume Builder
           </Link>
           <button
@@ -81,8 +88,13 @@ const HomePage = () => {
                   </li>
                   <li className="nav-item">
                     <button
-                      className="btn btn-outline-light"
+                      className="btn btn-light"
                       onClick={handleSignOut}
+                      style={{
+                        backgroundColor: "#E8D3C8",
+                        color: "#664C33",
+                        border: "none",
+                      }}
                     >
                       Sign Out
                     </button>
@@ -113,16 +125,27 @@ const HomePage = () => {
       </nav>
 
       {/* Jumbotron */}
-      <div className="jumbotron text-center bg-light py-5">
+      <div
+        className="jumbotron text-center py-5"
+        style={{ backgroundColor: "#E8D3C8", color: "#664C33" }}
+      >
         <div className="container">
           <h1 className="display-4">Craft Your Professional Resume</h1>
           <p className="lead">
             Stand out with a resume that truly represents you.
           </p>
           {isLoggedIn ? (
-            <h2 className="text-primary">Hello, {user?.name}</h2>
+            <h2 style={{ color: "#B8860B" }}>Hello, {user?.name}</h2>
           ) : (
-            <Link className="btn btn-primary btn-lg" to="/login">
+            <Link
+              className="btn btn-lg"
+              to="/login"
+              style={{
+                backgroundColor: "#B8860B",
+                color: "#F5F5F5",
+                border: "none",
+              }}
+            >
               Get Started
             </Link>
           )}
@@ -133,17 +156,26 @@ const HomePage = () => {
       <div className="container my-5">
         <div className="row text-center">
           <div className="col-md-4">
-            <i className="fas fa-file-alt fa-3x text-primary mb-3"></i>
+            <i
+              className="fas fa-file-alt fa-3x mb-3"
+              style={{ color: "#B8860B" }}
+            ></i>
             <h4>Easy to Use</h4>
             <p>Create a professional resume with our intuitive interface.</p>
           </div>
           <div className="col-md-4">
-            <i className="fas fa-palette fa-3x text-primary mb-3"></i>
+            <i
+              className="fas fa-palette fa-3x mb-3"
+              style={{ color: "#B8860B" }}
+            ></i>
             <h4>Customizable Templates</h4>
             <p>Select and personalize templates to match your style.</p>
           </div>
           <div className="col-md-4">
-            <i className="fas fa-share-alt fa-3x text-primary mb-3"></i>
+            <i
+              className="fas fa-share-alt fa-3x mb-3"
+              style={{ color: "#B8860B" }}
+            ></i>
             <h4>Share & Download</h4>
             <p>Easily share your resume or download it in multiple formats.</p>
           </div>
@@ -223,16 +255,19 @@ const HomePage = () => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-dark text-white text-center py-4">
+      <footer
+        className="text-center py-4"
+        style={{ backgroundColor: "#664C33", color: "#F5F5F5" }}
+      >
         <p>&copy; 2024 Resume Builder. All Rights Reserved.</p>
-        <a href="https://www.facebook.com" className="text-white mx-2">
-          <i className="fab fa-facebook-f"></i>
+        <a href="https://www.facebook.com" className="mx-2">
+          <i className="fab fa-facebook-f" style={{ color: "#E8D3C8" }}></i>
         </a>
-        <a href="https://www.twitter.com" className="text-white mx-2">
-          <i className="fab fa-twitter"></i>
+        <a href="https://www.twitter.com" className="mx-2">
+          <i className="fab fa-twitter" style={{ color: "#E8D3C8" }}></i>
         </a>
-        <a href="https://www.linkedin.com" className="text-white mx-2">
-          <i className="fab fa-linkedin-in"></i>
+        <a href="https://www.linkedin.com" className="mx-2">
+          <i className="fab fa-linkedin-in" style={{ color: "#E8D3C8" }}></i>
         </a>
       </footer>
     </>
