@@ -36,6 +36,19 @@ const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      localStorage.clear(); // Clear user data from localStorage
+      setIsLoggedIn(false); // Reset state
+      setUser(null);
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   // Handle logout and clear state
   const handleSignOut = () => {
     localStorage.clear();
