@@ -31,19 +31,23 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ "personalInfo.email": email });
     if (!user) {
-      return res.status(404).json({ message: "Email not found" }); // Specific error for email
+      return res.status(404).json({ message: "Email not found" });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password); // Compare hashed password
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ message: "Incorrect password" }); // Specific error for password
+      return res.status(401).json({ message: "Incorrect password" });
     }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ message: "Login successful", token });
+    res.status(200).json({
+      message: "Login successful",
+      token,
+      name: user.personalInfo.fullName, // Include full name in the response
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

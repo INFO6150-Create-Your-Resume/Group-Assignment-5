@@ -1,12 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const HomePage = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const userData = localStorage.getItem("user");
+
+    if (token && userData) {
+      try {
+        const parsedUser = JSON.parse(userData);
+        setUser(parsedUser);
+        setIsLoggedIn(true);
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+        localStorage.clear();
+        setUser(null);
+        setIsLoggedIn(false);
+      }
+    } else {
+      setUser(null);
+      setIsLoggedIn(false);
+    }
+  }, []); // Runs once when the component mounts
+
+  useEffect(() => {
+    const handleUnload = () => {
+      localStorage.clear(); // Clear all local storage data
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+    };
+  }, []);
+
+  const handleSignOut = () => {
+    localStorage.clear(); // Clear localStorage
+    setIsLoggedIn(false); // Update state
+    setUser(null); // Clear user data
+  };
+
   return (
     <>
-      {/* Navbar with Dropdown */}
+      {/* Navbar */}
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
           <Link className="navbar-brand" to="/">
@@ -16,67 +58,55 @@ const HomePage = () => {
             className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarNavDropdown">
+          <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">
-              <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/templates">
-                  Templates
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/resumes">
-                  My Resumes
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/profile">
-                  Profile
-                </Link>
-              </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="/home"
-                  id="navbarDropdownMenuLink"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Settings
-                </a>
-                <ul className="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <Link className="dropdown-item" to="/account">
-                      Account
+              {isLoggedIn ? (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/templates">
+                      Library
                     </Link>
                   </li>
-                  <li>
-                    <Link className="dropdown-item" to="/preferences">
-                      Preferences
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/my-templates">
+                      My Templates
                     </Link>
                   </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to="/signout">
+                  <li className="nav-item">
+                    <button
+                      className="btn btn-outline-light"
+                      onClick={handleSignOut}
+                    >
                       Sign Out
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/templates">
+                      Templates
                     </Link>
                   </li>
-                </ul>
-              </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/login">
+                      Sign In
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/register">
+                      Sign Up
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
@@ -89,9 +119,13 @@ const HomePage = () => {
           <p className="lead">
             Stand out with a resume that truly represents you.
           </p>
-          <Link className="btn btn-primary btn-lg" to="/login">
-            Get Started
-          </Link>
+          {isLoggedIn ? (
+            <h2 className="text-primary">Hello, {user?.name}</h2>
+          ) : (
+            <Link className="btn btn-primary btn-lg" to="/login">
+              Get Started
+            </Link>
+          )}
         </div>
       </div>
 

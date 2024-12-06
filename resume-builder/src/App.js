@@ -8,11 +8,11 @@ const App = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/home" element={<HomePage />} />{" "}
+        {/* Home page as default */}
+        <Route path="/" element={<HomePage />} /> {/* Redirect to home */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegisterForm />} />
-        <Route path="/home" element={<HomePage />} />{" "}
-        {/* Add home page route */}
-        <Route path="/" element={<Login />} /> {/* Default route */}
       </Routes>
     </Router>
   );
