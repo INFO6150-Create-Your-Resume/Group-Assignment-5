@@ -206,17 +206,139 @@
 // const PORT = process.env.PORT || 3000;
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
+// const express = require("express");
+// const bcrypt = require("bcrypt");
+// const jwt = require("jsonwebtoken");
+// const User = require("./models/userModel");
+// const router = express.Router();
+
+// const app = express();
+
+// // Middleware for Admin Verification
+// const verifyAdmin = (req, res, next) => {
+//   const token = req.headers.authorization?.split(" ")[1];
+//   if (!token) {
+//     console.log("Access denied: No token provided");
+//     return res
+//       .status(403)
+//       .json({ message: "Access denied: No token provided" });
+//   }
+
+//   try {
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//     console.log("Decoded token:", decoded);
+//     if (decoded.role !== "admin") {
+//       return res.status(403).json({ message: "Access denied: Admins only" });
+//     }
+//     req.user = decoded;
+//     next();
+//   } catch (error) {
+//     console.error("Invalid or expired token:", error);
+//     res.status(401).json({ message: "Invalid or expired token" });
+//   }
+// };
+
+// // User Registration Endpoint
+// router.post("/register", async (req, res) => {
+//   const { email, password, role, fullName } = req.body;
+//   console.log("Registering user with email:", email);
+
+//   try {
+//     const existingUser = await User.findOne({ "personalInfo.email": email });
+//     if (existingUser) {
+//       console.log("User already exists:", email);
+//       return res.status(400).json({ message: "User already exists" });
+//     }
+
+//     const newUser = new User({
+//       personalInfo: { email, fullName },
+//       password,
+//       role: role || "user",
+//     });
+
+//     await newUser.save();
+//     console.log("User registered successfully:", email);
+//     res.status(201).json({ message: "User registered successfully!" });
+//   } catch (error) {
+//     console.error("Error registering user:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
+
+// // User Login Endpoint
+// router.post("/login", async (req, res) => {
+//   const { email, password } = req.body;
+//   console.log("Login request received:", { email });
+
+//   try {
+//     const user = await User.findOne({ "personalInfo.email": email });
+//     console.log("User found:", user);
+
+//     if (!user) {
+//       console.log("User not found for email:", email);
+//       return res.status(400).json({ message: "Invalid email or password" });
+//     }
+
+//     const isMatch = await bcrypt.compare(password, user.password);
+//     console.log("Password match result:", isMatch);
+
+//     if (!isMatch) {
+//       console.log("Password mismatch for email:", email);
+//       return res.status(400).json({ message: "Invalid email or password" });
+//     }
+
+//     const token = jwt.sign(
+//       { id: user._id, email: user.personalInfo.email, role: user.role },
+//       process.env.JWT_SECRET,
+//       { expiresIn: "1h" }
+//     );
+
+//     console.log("JWT generated for email:", email);
+//     res.status(200).json({
+//       message: "Login successful",
+//       token,
+//       user: {
+//         fullName: user.personalInfo.fullName,
+//         email: user.personalInfo.email,
+//         role: user.role,
+//       },
+//     });
+//   } catch (error) {
+//     console.error("Error during login:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
+
+// // Example Admin-Only Route
+// router.get("/admin-data", verifyAdmin, async (req, res) => {
+//   res.status(200).json({ message: "Welcome, Admin!" });
+// });
+
+// // Start the server
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// module.exports = router;
+
+require("dotenv").config();
 const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("./models/userModel");
+
+const app = express();
 const router = express.Router();
 
-// Middleware for Admin Verification
+// Middleware
+app.use(express.json()); // For parsing JSON
+app.use(cors()); // Enable cross-origin requests
+
+// Admin Verification Middleware
 const verifyAdmin = (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) {
-    console.log("Access denied: No token provided");
     return res
       .status(403)
       .json({ message: "Access denied: No token provided" });
@@ -224,14 +346,12 @@ const verifyAdmin = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Decoded token:", decoded);
     if (decoded.role !== "admin") {
       return res.status(403).json({ message: "Access denied: Admins only" });
     }
     req.user = decoded;
     next();
   } catch (error) {
-    console.error("Invalid or expired token:", error);
     res.status(401).json({ message: "Invalid or expired token" });
   }
 };
@@ -239,26 +359,23 @@ const verifyAdmin = (req, res, next) => {
 // User Registration Endpoint
 router.post("/register", async (req, res) => {
   const { email, password, role, fullName } = req.body;
-  console.log("Registering user with email:", email);
 
   try {
     const existingUser = await User.findOne({ "personalInfo.email": email });
     if (existingUser) {
-      console.log("User already exists:", email);
       return res.status(400).json({ message: "User already exists" });
     }
 
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
       personalInfo: { email, fullName },
-      password,
+      password: hashedPassword,
       role: role || "user",
     });
 
     await newUser.save();
-    console.log("User registered successfully:", email);
     res.status(201).json({ message: "User registered successfully!" });
   } catch (error) {
-    console.error("Error registering user:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
@@ -266,22 +383,15 @@ router.post("/register", async (req, res) => {
 // User Login Endpoint
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  console.log("Login request received:", { email });
 
   try {
     const user = await User.findOne({ "personalInfo.email": email });
-    console.log("User found:", user);
-
     if (!user) {
-      console.log("User not found for email:", email);
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log("Password match result:", isMatch);
-
     if (!isMatch) {
-      console.log("Password mismatch for email:", email);
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
@@ -291,7 +401,6 @@ router.post("/login", async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    console.log("JWT generated for email:", email);
     res.status(200).json({
       message: "Login successful",
       token,
@@ -302,14 +411,26 @@ router.post("/login", async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Error during login:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
 
 // Example Admin-Only Route
-router.get("/admin-data", verifyAdmin, async (req, res) => {
+router.get("/admin-data", verifyAdmin, (req, res) => {
   res.status(200).json({ message: "Welcome, Admin!" });
 });
 
-module.exports = router;
+// Mount Router
+app.use("/api/users", router);
+
+// Connect to MongoDB and Start Server
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  })
+  .catch((error) => console.error("Error connecting to MongoDB:", error));
