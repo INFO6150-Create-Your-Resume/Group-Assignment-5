@@ -2,9 +2,35 @@ import React, { useState } from "react";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
+    fullName: "",
+    contact: "",
     email: "",
+    address: "",
+    linkedin: "",
+    portfolio: "",
     password: "",
+    objective: "",
+    education: [
+      {
+        institution: "",
+        degree: "",
+        fieldOfStudy: "",
+        graduationYear: "",
+        relevantCoursework: "",
+      },
+    ],
+    workExperience: [
+      {
+        company: "",
+        position: "",
+        startDate: "",
+        endDate: "",
+        responsibilities: "",
+        achievements: "",
+      },
+    ],
+    skills: "",
+    achievements: "",
   });
   const [step, setStep] = useState(1);
 
@@ -44,17 +70,17 @@ const RegisterForm = () => {
     >
       <div
         className="card register-card"
-        style={{ backgroundColor: "#E8D3C8", color: "#664C33", width: "400px" }}
+        style={{ backgroundColor: "#E8D3C8", color: "#664C33", width: "500px" }}
       >
         <h3 className="text-center" style={{ color: "#B8860B" }}>
-          Sign Up
+          Build Your Resume
         </h3>
         <div className="progress">
           <div
             className="progress-bar"
             style={{
               backgroundColor: "#B8860B",
-              width: `${(step / 3) * 100}%`,
+              width: `${(step / 4) * 100}%`,
             }}
           ></div>
         </div>
@@ -65,10 +91,22 @@ const RegisterForm = () => {
               <div className="mb-3">
                 <input
                   type="text"
-                  name="firstName"
-                  placeholder="First Name"
+                  name="fullName"
+                  placeholder="Full Name"
                   className="form-control"
-                  value={formData.firstName}
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  required
+                  style={{ borderColor: "#D2B48C" }}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  name="contact"
+                  placeholder="Contact Number"
+                  className="form-control"
+                  value={formData.contact}
                   onChange={handleInputChange}
                   required
                   style={{ borderColor: "#D2B48C" }}
@@ -88,13 +126,23 @@ const RegisterForm = () => {
               </div>
               <div className="mb-3">
                 <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
+                  type="text"
+                  name="linkedin"
+                  placeholder="LinkedIn Profile URL"
                   className="form-control"
-                  value={formData.password}
+                  value={formData.linkedin}
                   onChange={handleInputChange}
-                  required
+                  style={{ borderColor: "#D2B48C" }}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  name="portfolio"
+                  placeholder="Portfolio URL"
+                  className="form-control"
+                  value={formData.portfolio}
+                  onChange={handleInputChange}
                   style={{ borderColor: "#D2B48C" }}
                 />
               </div>
@@ -109,29 +157,105 @@ const RegisterForm = () => {
             </form>
           </div>
         )}
-        {/* Additional steps retained */}
         {step === 2 && (
           <div>
-            <h6>Step 2: Career Goals</h6>
-            <textarea
-              placeholder="Describe your career goals"
-              className="form-control"
-              style={{ borderColor: "#D2B48C" }}
-            ></textarea>
-            <button
-              className="btn w-100"
-              onClick={prevStep}
-              style={{ backgroundColor: "#B8860B", color: "#F5F5F5" }}
-            >
-              <i className="fas fa-arrow-left"></i> Back
-            </button>
-            <button
-              className="btn w-100"
-              onClick={nextStep}
-              style={{ backgroundColor: "#B8860B", color: "#F5F5F5" }}
-            >
-              Next <i className="fas fa-arrow-right"></i>
-            </button>
+            <h6>Step 2: Career Objective</h6>
+            <form>
+              <div className="mb-3">
+                <textarea
+                  name="objective"
+                  placeholder="Your career objective"
+                  className="form-control"
+                  value={formData.objective}
+                  onChange={handleInputChange}
+                  required
+                  style={{ borderColor: "#D2B48C" }}
+                ></textarea>
+              </div>
+              <button
+                type="button"
+                className="btn w-100"
+                onClick={prevStep}
+                style={{ backgroundColor: "#B8860B", color: "#F5F5F5" }}
+              >
+                <i className="fas fa-arrow-left"></i> Back
+              </button>
+              <button
+                type="button"
+                className="btn w-100"
+                onClick={nextStep}
+                style={{ backgroundColor: "#B8860B", color: "#F5F5F5" }}
+              >
+                Next <i className="fas fa-arrow-right"></i>
+              </button>
+            </form>
+          </div>
+        )}
+        {step === 3 && (
+          <div>
+            <h6>Step 3: Education</h6>
+            <form>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  name="institution"
+                  placeholder="Institution"
+                  className="form-control"
+                  value={formData.education[0].institution}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      education: [
+                        {
+                          ...formData.education[0],
+                          institution: e.target.value,
+                        },
+                      ],
+                    })
+                  }
+                  required
+                  style={{ borderColor: "#D2B48C" }}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  name="degree"
+                  placeholder="Degree"
+                  className="form-control"
+                  value={formData.education[0].degree}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      education: [
+                        {
+                          ...formData.education[0],
+                          degree: e.target.value,
+                        },
+                      ],
+                    })
+                  }
+                  required
+                  style={{ borderColor: "#D2B48C" }}
+                />
+              </div>
+              <button
+                type="button"
+                className="btn w-100"
+                onClick={prevStep}
+                style={{ backgroundColor: "#B8860B", color: "#F5F5F5" }}
+              >
+                <i className="fas fa-arrow-left"></i> Back
+              </button>
+              <button
+                type="submit"
+                className="btn w-100"
+                onClick={handleRegister}
+                style={{ backgroundColor: "#B8860B", color: "#F5F5F5" }}
+              >
+                Register <i className="fas fa-check"></i>
+              </button>
+            </form>
           </div>
         )}
       </div>
