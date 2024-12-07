@@ -119,14 +119,14 @@ const Navbar = ({ isLoggedIn, user, handleSignOut }) => {
           <ul className="navbar-nav ms-auto">
             {/* Always Visible Links */}
             <li className="nav-item">
-              <NavLink
+              {/* <NavLink
                 className="nav-link"
                 to="/templates"
                 style={{ color: "#F5F5F5" }}
                 activeStyle={{ fontWeight: "bold", color: "#E8D3C8" }}
               >
                 Templates
-              </NavLink>
+              </NavLink> */}
             </li>
             {/* Conditional Links Based on Login State */}
             {isLoggedIn ? (
