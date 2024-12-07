@@ -165,16 +165,30 @@ const App = () => {
 
     if (token && userData) {
       try {
-        const parsedUser = JSON.parse(userData);
-        setUser(parsedUser);
-        setIsLoggedIn(true);
+        const parsedUser = JSON.parse(userData); // Parse the user data
+        console.log("Retrieved User from LocalStorage:", parsedUser);
+        setUser(parsedUser); // Set the user state
+        setIsLoggedIn(true); // Set logged-in state
       } catch (error) {
         console.error("Error parsing user data:", error);
-        localStorage.clear();
-        setUser(null);
+        localStorage.clear(); // Clear corrupted data
+        setUser(null); // Reset state
         setIsLoggedIn(false);
       }
     }
+  }, []);
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      localStorage.clear(); // Clear user data from localStorage
+      setIsLoggedIn(false); // Reset state
+      setUser(null);
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
   }, []);
 
   const handleSignOut = () => {
@@ -194,7 +208,30 @@ const App = () => {
 
       {/* Routes */}
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        {/* Logged-in Home Route */}
+        <Route
+          path="/home"
+          element={
+            isLoggedIn ? (
+              <HomePage isLoggedIn={isLoggedIn} user={user} />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
+        />
+        {/* Non-logged-in Home Route */}
+        <Route
+          path="/"
+          element={
+            !isLoggedIn ? (
+              <HomePage isLoggedIn={isLoggedIn} user={user} />
+            ) : (
+              <Navigate to="/home" replace />
+            )
+          }
+        />
+
+        {/* Login Route */}
         <Route
           path="/login"
           element={<Login setUser={setUser} setIsLoggedIn={setIsLoggedIn} />}
