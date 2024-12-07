@@ -66,69 +66,109 @@ const HomePage = ({ isLoggedIn, user }) => {
         className="carousel slide bg-light py-5"
         data-bs-ride="carousel"
       >
+          
         <div className="container">
+              
           <div className="carousel-inner">
+                  
             <div className="carousel-item active text-center">
+                      
               <img
                 src="https://i.pravatar.cc/80?img=1"
                 alt="John Doe"
                 className="rounded-circle mb-3"
               />
+                      
               <blockquote className="blockquote">
-                <p>"This tool made creating my resume a breeze!"</p>
+                          <p>"This tool made creating my resume a breeze!"</p>
+                          
                 <footer className="blockquote-footer">John Doe</footer>
+                        
               </blockquote>
+                    
             </div>
+                  
             <div className="carousel-item text-center">
+                      
               <img
                 src="https://i.pravatar.cc/80?img=2"
                 alt="Jane Smith"
                 className="rounded-circle mb-3"
               />
+                      
               <blockquote className="blockquote">
+                          
                 <p>"I landed my dream job thanks to my new resume."</p>
+                          
                 <footer className="blockquote-footer">Jane Smith</footer>
+                        
               </blockquote>
+                    
             </div>
+                  
             <div className="carousel-item text-center">
+                      
               <img
                 src="https://i.pravatar.cc/80?img=3"
                 alt="Alex Johnson"
                 className="rounded-circle mb-3"
               />
+                      
               <blockquote className="blockquote">
+                          
                 <p>
-                  "Highly recommend this service to anyone needing a
-                  professional resume."
+                              "Highly recommend this service to anyone needing a
+                  professional resume."           
                 </p>
+                          
                 <footer className="blockquote-footer">Alex Johnson</footer>
+                        
               </blockquote>
+                    
             </div>
+                
           </div>
+              
           <button
             className="carousel-control-prev"
             type="button"
             data-bs-target="#testimonialsCarousel"
             data-bs-slide="prev"
           >
+                  
             <span
               className="carousel-control-prev-icon"
               aria-hidden="true"
+              style={{
+                backgroundColor: "#B8860B", // Change the background color of the arrow
+                borderRadius: "50%", // Optional: make the arrow circular
+                padding: "10px", // Add padding for better visibility
+              }}
             ></span>
-            <span className="visually-hidden">Previous</span>
+                  <span className="visually-hidden">Previous</span>
+                
           </button>
+              
           <button
             className="carousel-control-next"
             type="button"
             data-bs-target="#testimonialsCarousel"
             data-bs-slide="next"
           >
+                  
             <span
               className="carousel-control-next-icon"
               aria-hidden="true"
+              style={{
+                backgroundColor: "#B8860B", // Change the background color of the arrow
+                borderRadius: "50%", // Optional: make the arrow circular
+                padding: "10px", // Add padding for better visibility
+              }}
             ></span>
-            <span className="visually-hidden">Next</span>
+                  <span className="visually-hidden">Next</span>
+                
           </button>
+            
         </div>
       </div>
 
