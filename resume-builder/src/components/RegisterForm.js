@@ -146,255 +146,282 @@ const RegisterForm = () => {
   return (
     <div
       className="d-flex justify-content-center align-items-center vh-100"
-      style={{ backgroundColor: "#F5F5F5" }}
+      style={{
+        backgroundImage:
+          "url('https://static-cse.canva.com/blob/566484/modernresumes.jpg')", // Replace with your image path
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
     >
       <div
         className="card register-card p-4"
-        style={{ backgroundColor: "#E8D3C8", color: "#664C33", width: "500px" }}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.9)", // Slight transparency for the card
+          color: "#664C33",
+          width: "500px",
+          borderRadius: "10px",
+        }}
       >
-        <h3 className="text-center mb-4" style={{ color: "#B8860B" }}>
-          Build Your Resume
-        </h3>
-        <div className="progress mb-4">
+        <div
+          className="d-flex justify-content-center align-items-center vh-100"
+          style={{ backgroundColor: "#F5F5F5" }}
+        >
           <div
-            className="progress-bar"
+            className="card register-card p-4"
             style={{
-              backgroundColor: "#B8860B",
-              width: `${(step / 4) * 100}%`,
+              backgroundColor: "#E8D3C8",
+              color: "#664C33",
+              width: "500px",
             }}
-          ></div>
-        </div>
-        {step === 1 && (
-          <div>
-            <h6>Step 1: Personal Information</h6>
-            <form>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  name="fullName"
-                  placeholder="Full Name"
-                  className="form-control"
-                  value={formData.fullName}
-                  onChange={handleInputChange}
-                  style={{ borderColor: "#D2B48C" }}
-                />
-                {errors.fullName && (
-                  <p className="text-danger">{errors.fullName}</p>
-                )}
+          >
+            <h3 className="text-center mb-4" style={{ color: "#B8860B" }}>
+              Build Your Resume
+            </h3>
+            <div className="progress mb-4">
+              <div
+                className="progress-bar"
+                style={{
+                  backgroundColor: "#B8860B",
+                  width: `${(step / 4) * 100}%`,
+                }}
+              ></div>
+            </div>
+            {step === 1 && (
+              <div>
+                <h6>Step 1: Personal Information</h6>
+                <form>
+                  <div className="mb-3">
+                    <input
+                      type="text"
+                      name="fullName"
+                      placeholder="Full Name"
+                      className="form-control"
+                      value={formData.fullName}
+                      onChange={handleInputChange}
+                      style={{ borderColor: "#D2B48C" }}
+                    />
+                    {errors.fullName && (
+                      <p className="text-danger">{errors.fullName}</p>
+                    )}
+                  </div>
+                  <div className="mb-3">
+                    <input
+                      type="text"
+                      name="contact"
+                      placeholder="Contact Number"
+                      className="form-control"
+                      value={formData.contact}
+                      onChange={handleInputChange}
+                      style={{ borderColor: "#D2B48C" }}
+                    />
+                    {errors.contact && (
+                      <p className="text-danger">{errors.contact}</p>
+                    )}
+                  </div>
+                  <div className="mb-3">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      className="form-control"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      style={{ borderColor: "#D2B48C" }}
+                    />
+                    {errors.email && (
+                      <p className="text-danger">{errors.email}</p>
+                    )}
+                  </div>
+                  <div className="mb-3">
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                      className="form-control"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      style={{ borderColor: "#D2B48C" }}
+                    />
+                    {errors.password && (
+                      <p className="text-danger">{errors.password}</p>
+                    )}
+                  </div>
+                  <div className="mb-3">
+                    <input
+                      type="text"
+                      name="linkedin"
+                      placeholder="LinkedIn Profile URL"
+                      className="form-control"
+                      value={formData.linkedin}
+                      onChange={handleInputChange}
+                      style={{ borderColor: "#D2B48C" }}
+                    />
+                    {errors.linkedin && (
+                      <p className="text-danger">{errors.linkedin}</p>
+                    )}
+                  </div>
+                  <div className="mb-3">
+                    <input
+                      type="text"
+                      name="portfolio"
+                      placeholder="Portfolio URL"
+                      className="form-control"
+                      value={formData.portfolio}
+                      onChange={handleInputChange}
+                      style={{ borderColor: "#D2B48C" }}
+                    />
+                    {errors.portfolio && (
+                      <p className="text-danger">{errors.portfolio}</p>
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    className="btn w-100"
+                    onClick={handleNextStep}
+                    style={{ backgroundColor: "#B8860B", color: "#F5F5F5" }}
+                  >
+                    Next <i className="fas fa-arrow-right"></i>
+                  </button>
+                </form>
               </div>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  name="contact"
-                  placeholder="Contact Number"
-                  className="form-control"
-                  value={formData.contact}
-                  onChange={handleInputChange}
-                  style={{ borderColor: "#D2B48C" }}
-                />
-                {errors.contact && (
-                  <p className="text-danger">{errors.contact}</p>
-                )}
-              </div>
-              <div className="mb-3">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  className="form-control"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  style={{ borderColor: "#D2B48C" }}
-                />
-                {errors.email && <p className="text-danger">{errors.email}</p>}
-              </div>
-              <div className="mb-3">
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  className="form-control"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  style={{ borderColor: "#D2B48C" }}
-                />
-                {errors.password && (
-                  <p className="text-danger">{errors.password}</p>
-                )}
-              </div>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  name="linkedin"
-                  placeholder="LinkedIn Profile URL"
-                  className="form-control"
-                  value={formData.linkedin}
-                  onChange={handleInputChange}
-                  style={{ borderColor: "#D2B48C" }}
-                />
-                {errors.linkedin && (
-                  <p className="text-danger">{errors.linkedin}</p>
-                )}
-              </div>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  name="portfolio"
-                  placeholder="Portfolio URL"
-                  className="form-control"
-                  value={formData.portfolio}
-                  onChange={handleInputChange}
-                  style={{ borderColor: "#D2B48C" }}
-                />
-                {errors.portfolio && (
-                  <p className="text-danger">{errors.portfolio}</p>
-                )}
-              </div>
-              <button
-                type="button"
-                className="btn w-100"
-                onClick={handleNextStep}
-                style={{ backgroundColor: "#B8860B", color: "#F5F5F5" }}
-              >
-                Next <i className="fas fa-arrow-right"></i>
-              </button>
-            </form>
-          </div>
-        )}
+            )}
 
-        {step === 2 && (
-          <div>
-            <h6>Step 2: Career Objective and Skills</h6>
-            <form>
-              <div className="mb-3">
-                <textarea
-                  name="objective"
-                  placeholder="Your career objective"
-                  className="form-control"
-                  value={formData.objective}
-                  onChange={handleInputChange}
-                  style={{ borderColor: "#D2B48C" }}
-                ></textarea>
-                {errors.objective && (
-                  <p className="text-danger">{errors.objective}</p>
-                )}
+            {step === 2 && (
+              <div>
+                <h6>Step 2: Career Objective and Skills</h6>
+                <form>
+                  <div className="mb-3">
+                    <textarea
+                      name="objective"
+                      placeholder="Your career objective"
+                      className="form-control"
+                      value={formData.objective}
+                      onChange={handleInputChange}
+                      style={{ borderColor: "#D2B48C" }}
+                    ></textarea>
+                    {errors.objective && (
+                      <p className="text-danger">{errors.objective}</p>
+                    )}
+                  </div>
+                  <div className="mb-3">
+                    <input
+                      type="text"
+                      name="skills"
+                      placeholder="Skills (comma-separated)"
+                      className="form-control"
+                      value={formData.skills}
+                      onChange={handleInputChange}
+                      style={{ borderColor: "#D2B48C" }}
+                    />
+                    {errors.skills && (
+                      <p className="text-danger">{errors.skills}</p>
+                    )}
+                  </div>
+                  <div className="d-flex justify-content-between">
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={() => setStep(step - 1)}
+                      style={{
+                        backgroundColor: "#B8860B",
+                        color: "#F5F5F5",
+                        marginRight: "10px",
+                      }}
+                    >
+                      <i className="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={handleNextStep}
+                      style={{
+                        backgroundColor: "#B8860B",
+                        color: "#F5F5F5",
+                      }}
+                    >
+                      Next <i className="fas fa-arrow-right"></i>
+                    </button>
+                  </div>
+                </form>
               </div>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  name="skills"
-                  placeholder="Skills (comma-separated)"
-                  className="form-control"
-                  value={formData.skills}
-                  onChange={handleInputChange}
-                  style={{ borderColor: "#D2B48C" }}
-                />
-                {errors.skills && (
-                  <p className="text-danger">{errors.skills}</p>
-                )}
+            )}
+            {step === 3 && (
+              <div>
+                <h6>Step 3: Education</h6>
+                <form>
+                  <div className="mb-3">
+                    <input
+                      type="text"
+                      name="institution"
+                      placeholder="Institution"
+                      className="form-control"
+                      value={formData.education[0].institution}
+                      onChange={(e) => handleArrayChange(e, "education", 0)}
+                      style={{ borderColor: "#D2B48C" }}
+                    />
+                    {errors.institution && (
+                      <p className="text-danger">{errors.institution}</p>
+                    )}
+                  </div>
+                  <div className="mb-3">
+                    <input
+                      type="text"
+                      name="degree"
+                      placeholder="Degree"
+                      className="form-control"
+                      value={formData.education[0].degree}
+                      onChange={(e) => handleArrayChange(e, "education", 0)}
+                      style={{ borderColor: "#D2B48C" }}
+                    />
+                    {errors.degree && (
+                      <p className="text-danger">{errors.degree}</p>
+                    )}
+                  </div>
+                  <div className="mb-3">
+                    <input
+                      type="text"
+                      name="graduationYear"
+                      placeholder="Graduation Year"
+                      className="form-control"
+                      value={formData.education[0].graduationYear}
+                      onChange={(e) => handleArrayChange(e, "education", 0)}
+                      style={{ borderColor: "#D2B48C" }}
+                    />
+                    {errors.graduationYear && (
+                      <p className="text-danger">{errors.graduationYear}</p>
+                    )}
+                  </div>
+                  <div className="d-flex justify-content-between">
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={() => setStep(step - 1)}
+                      style={{
+                        backgroundColor: "#B8860B",
+                        color: "#F5F5F5",
+                        marginRight: "10px",
+                      }}
+                    >
+                      <i className="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button
+                      type="submit"
+                      className="btn"
+                      onClick={handleRegister}
+                      style={{
+                        backgroundColor: "#B8860B",
+                        color: "#F5F5F5",
+                      }}
+                    >
+                      Register <i className="fas fa-check"></i>
+                    </button>
+                  </div>
+                </form>
               </div>
-              <div className="d-flex justify-content-between">
-                <button
-                  type="button"
-                  className="btn"
-                  onClick={() => setStep(step - 1)}
-                  style={{
-                    backgroundColor: "#B8860B",
-                    color: "#F5F5F5",
-                    marginRight: "10px",
-                  }}
-                >
-                  <i className="fas fa-arrow-left"></i> Back
-                </button>
-                <button
-                  type="button"
-                  className="btn"
-                  onClick={handleNextStep}
-                  style={{
-                    backgroundColor: "#B8860B",
-                    color: "#F5F5F5",
-                  }}
-                >
-                  Next <i className="fas fa-arrow-right"></i>
-                </button>
-              </div>
-            </form>
+            )}
           </div>
-        )}
-        {step === 3 && (
-          <div>
-            <h6>Step 3: Education</h6>
-            <form>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  name="institution"
-                  placeholder="Institution"
-                  className="form-control"
-                  value={formData.education[0].institution}
-                  onChange={(e) => handleArrayChange(e, "education", 0)}
-                  style={{ borderColor: "#D2B48C" }}
-                />
-                {errors.institution && (
-                  <p className="text-danger">{errors.institution}</p>
-                )}
-              </div>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  name="degree"
-                  placeholder="Degree"
-                  className="form-control"
-                  value={formData.education[0].degree}
-                  onChange={(e) => handleArrayChange(e, "education", 0)}
-                  style={{ borderColor: "#D2B48C" }}
-                />
-                {errors.degree && (
-                  <p className="text-danger">{errors.degree}</p>
-                )}
-              </div>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  name="graduationYear"
-                  placeholder="Graduation Year"
-                  className="form-control"
-                  value={formData.education[0].graduationYear}
-                  onChange={(e) => handleArrayChange(e, "education", 0)}
-                  style={{ borderColor: "#D2B48C" }}
-                />
-                {errors.graduationYear && (
-                  <p className="text-danger">{errors.graduationYear}</p>
-                )}
-              </div>
-              <div className="d-flex justify-content-between">
-                <button
-                  type="button"
-                  className="btn"
-                  onClick={() => setStep(step - 1)}
-                  style={{
-                    backgroundColor: "#B8860B",
-                    color: "#F5F5F5",
-                    marginRight: "10px",
-                  }}
-                >
-                  <i className="fas fa-arrow-left"></i> Back
-                </button>
-                <button
-                  type="submit"
-                  className="btn"
-                  onClick={handleRegister}
-                  style={{
-                    backgroundColor: "#B8860B",
-                    color: "#F5F5F5",
-                  }}
-                >
-                  Register <i className="fas fa-check"></i>
-                </button>
-              </div>
-            </form>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

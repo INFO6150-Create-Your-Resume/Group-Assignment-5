@@ -41,10 +41,24 @@ const Login = ({ setUser, setIsLoggedIn }) => {
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center vh-100">
+    <div
+      className="container-fluid d-flex justify-content-center align-items-center vh-100"
+      style={{
+        backgroundImage:
+          "url('https://static-cse.canva.com/blob/566484/modernresumes.jpg')", // Replace with your image path
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div
         className="card shadow-lg p-4"
-        style={{ maxWidth: "400px", width: "100%" }}
+        style={{
+          maxWidth: "400px",
+          width: "100%",
+          backgroundColor: "rgba(255, 255, 255, 0.85)", // Slight transparency for the card
+          borderRadius: "10px",
+        }}
       >
         <h3 className="card-title text-center mb-4">Login</h3>
         <form onSubmit={handleLogin}>
