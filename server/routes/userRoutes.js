@@ -73,4 +73,19 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// In your backend route handler
+router.put("/update", async (req, res) => {
+  try {
+    const { id, ...updatedData } = req.body;
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { $set: updatedData },
+      { new: true }
+    );
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to update profile", error });
+  }
+});
+
 module.exports = router;
