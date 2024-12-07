@@ -242,10 +242,33 @@ const App = () => {
             <RegisterForm setUser={setUser} setIsLoggedIn={setIsLoggedIn} />
           }
         />
-        <Route path="/library" element={<Library />} />
+        <Route
+          path="/library"
+          element={
+            isLoggedIn ? (
+              <Library
+                isLoggedIn={isLoggedIn}
+                user={user}
+                handleSignOut={handleSignOut}
+              />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
         <Route
           path="/profile"
-          element={isLoggedIn ? <Profile /> : <Navigate to="/login" replace />}
+          element={
+            isLoggedIn ? (
+              <Profile
+                isLoggedIn={isLoggedIn}
+                user={user}
+                handleSignOut={handleSignOut}
+              />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
         />
         <Route
           path="/admin"
