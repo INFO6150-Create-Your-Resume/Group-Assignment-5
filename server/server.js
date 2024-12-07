@@ -407,7 +407,15 @@ router.post("/login", async (req, res) => {
       user: {
         fullName: user.personalInfo.fullName,
         email: user.personalInfo.email,
-        role: user.role,
+        role: user.personalInfo.role,
+        contact: user.personalInfo.contact,
+        address: user.personalInfo.address,
+        linkedin: user.personalInfo.linkedin,
+        portfolio: user.personalInfo.portfolio,
+        education: user.education,
+        workExperience: user.workExperience,
+        skills: user.skills,
+        achievements: user.achievements,
       },
     });
   } catch (error) {
